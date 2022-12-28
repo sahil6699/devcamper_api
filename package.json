@@ -1,0 +1,19 @@
+{
+  "name": "devcamper_api",
+  "version": "1.0.0",
+  "description": "DEVCAMPER BACKEND API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server NODE_ENV=production",
+    "dev": "nodemon server.js"
+  },
+  "author": "sahil aneja",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
