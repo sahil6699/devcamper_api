@@ -16,13 +16,13 @@ const bootcampRouter = require('./routes/bootcamps');
 
 const app = express();
 
-// DEV Loggin  middleware
+app.use(express.json());
+
+// DEV Login  middleware
 // app.use(logger);
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('combined'));
 }
-
-app.use(express.json());
 
 //Mount router
 app.use('/api/v1/bootcamps', bootcampRouter);
