@@ -1,4 +1,5 @@
 const Bootcamp = require('../models/bootcamps');
+const ErrorResponse = require('../utils/errorResponse');
 
 // @dec Get all bootcamps
 //@route GET /api/v1/bootcamps
@@ -49,9 +50,14 @@ const getBootcamp = async (req, res, next) => {
       // we have wrote return here because we have wrote two response statements in a single try catch
       // if we don't write return it will show the below error
       //Error: Cannot set headers after they are sent to the client
-      return res.status(400).json({
-        success: false,
-      });
+
+      // return res.status(400).json({
+      //   success: false,
+      // });
+
+      next(
+        ErrorResponse(`Bootcamp  not  found with the id of $req.params.id`, 404)
+      );
     }
     res.status(200).json({
       success: true,
@@ -62,7 +68,15 @@ const getBootcamp = async (req, res, next) => {
     // res.status(400).json({
     //   success: false,
     // });
-    next(err);
+
+    // next(err);
+
+    next(
+      new ErrorResponse(
+        `Bootcamp not found with the id of ${req.params.id}`,
+        404
+      )
+    );
   }
 };
 
