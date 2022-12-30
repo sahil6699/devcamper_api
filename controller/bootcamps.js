@@ -55,8 +55,11 @@ const getBootcamp = async (req, res, next) => {
       //   success: false,
       // });
 
-      next(
-        ErrorResponse(`Bootcamp  not  found with the id of $req.params.id`, 404)
+      return next(
+        new ErrorResponse(
+          `Bootcamp  not  found with the id of $req.params.id`,
+          404
+        )
       );
     }
     res.status(200).json({
