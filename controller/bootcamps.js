@@ -48,17 +48,37 @@ const getBootcamps = asyncHandler(async (req, res, next) => {
 
   //Pagination
   const page = parseInt(req.query.page, 10) || 1;
-  const limit = parseInt(req.query.limit, 10) || 10;
-  const skip = (page - 1) * limit;
+  const limit = parseInt(req.query.limit, 10) || 25;
+  const startIndex = (page - 1) * limit; //here skip is renamed as startIndex, it represent how many document from starting we want to skip
+  const endIndex = page * limit;
+  const total = await Bootcamp.countDocuments();
 
-  query.skip(skip).limit(limit);
+  query.skip(startIndex).limit(limit);
 
   //Executing the query
   const bootcamps = await query;
 
+  //Pagination result
+  const pagination = {};
+
+  // if don't have a previous page we don't wanna show a previous page,if we don't have a next page we don't wanna show a next page
+  if (endIndex < total) {
+    pagination.next = {
+      page: page + 1,
+      limit,
+    };
+  }
+
+  if (startIndex > 0) {
+    pagination.prev = {
+      page: page - 1,
+      limit,
+    };
+  }
   res.status(200).json({
     success: true,
     count: bootcamps.length,
+    pagination,
     data: bootcamps,
   });
 });
