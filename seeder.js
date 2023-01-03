@@ -7,7 +7,7 @@ const dotenv = require('dotenv');
 dotenv.config({ path: './config/config.env' });
 
 //load models
-const Bootcamp = require('./models/Bootcamps');
+const Bootcamp = require('./models/Bootcamp');
 
 //to remove depreciation warnings
 mongoose.set('strictQuery', false);

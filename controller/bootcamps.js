@@ -1,6 +1,6 @@
 const { disable } = require('colors');
 const asyncHandler = require('../middleware/async');
-const Bootcamp = require('../models/bootcamps');
+const Bootcamp = require('../models/bootcamp');
 const ErrorResponse = require('../utils/errorResponse');
 const geocoder = require('../utils/geocoder');
 
