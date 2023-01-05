@@ -3,44 +3,49 @@ const mongoose = require('mongoose');
 const colors = require('colors');
 const dotenv = require('dotenv');
 
-//load env variables
+// Load env vars
 dotenv.config({ path: './config/config.env' });
 
-//load models
-const Bootcamp = require('./models/Bootcamp');
+// Load models
+const Bootcamp = require('./models/Bootcamps');
+const Course = require('./models/Course');
 
 //to remove depreciation warnings
 mongoose.set('strictQuery', false);
 
-//connect to DB
+// Connect to DB
 mongoose.connect(process.env.MONGO_URI);
 
-//Read the JSON file
+// Read JSON files
 const bootcamps = JSON.parse(
-  fs.readFileSync(`${__dirname}/_data/bootcamps.json`),
-  'utf-8'
+  fs.readFileSync(`${__dirname}/_data/bootcamps.json`, 'utf-8')
 );
 
-//Import into DB
+const courses = JSON.parse(
+  fs.readFileSync(`${__dirname}/_data/courses.json`, 'utf-8')
+);
 
+// Import into DB
 const importData = async () => {
   try {
     await Bootcamp.create(bootcamps);
-    console.log('Data Imported....'.green.inverse);
+    await Course.create(courses);
+    console.log('Data Imported...'.green.inverse);
     process.exit();
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
-//Delete from the DB
+// Delete data
 const deleteData = async () => {
   try {
     await Bootcamp.deleteMany();
-    console.log('Data Destroyed....'.red.inverse);
+    await Course.deleteMany();
+    console.log('Data Destroyed...'.red.inverse);
     process.exit();
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 

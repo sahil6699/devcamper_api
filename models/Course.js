@@ -32,7 +32,7 @@ const CoursesSchema = new mongoose.Schema({
     default: Date.now(),
   },
   bootcamp: {
-    type: mongoose.Schema.ObjectId(),
+    type: mongoose.Schema.ObjectId,
     ref: 'Bootcamp',
     required: true,
   },
