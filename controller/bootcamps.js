@@ -1,4 +1,4 @@
-const { disable } = require('colors');
+const colors = require('colors');
 const asyncHandler = require('../middleware/async');
 const Bootcamp = require('../models/Bootcamps');
 const ErrorResponse = require('../utils/errorResponse');
