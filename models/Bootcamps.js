@@ -139,6 +139,12 @@ BootcampSchema.pre('save', async function (next) {
   next();
 });
 
+//Cascade delete courses when a bootcamp is deleted
+BootcampSchema.pre('remove', async function () {
+  console.log('Courses being removed from bootcamp ', this._id);
+  await this.model('Course').deleteMany({ bootcamp: this._id });
+  next();
+});
 //Reverse populate with virtual
 BootcampSchema.virtual('courses', {
   ref: 'Course',

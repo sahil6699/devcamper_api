@@ -119,8 +119,7 @@ const getBootcamp = asyncHandler(async (req, res, next) => {
 // @access Private
 const deleteBootcamp = asyncHandler(async (req, res, next) => {
   //findByIdAndDelete returns the document which has been deleted
-  const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
-
+  const bootcamp = await Bootcamp.findById(req.params.id);
   if (!bootcamp) {
     return next(
       new ErrorResponse(
@@ -129,6 +128,7 @@ const deleteBootcamp = asyncHandler(async (req, res, next) => {
       )
     );
   }
+  bootcamp.remove();
 
   res.status(200).json({
     success: true,
