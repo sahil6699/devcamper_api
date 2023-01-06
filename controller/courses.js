@@ -100,4 +100,32 @@ const updateCourse = asyncHandler(async (req, res, next) => {
   });
 });
 
-module.exports = { getCourses, getCourse, createCourse, updateCourse };
+// @dec   Delete course
+//@route  DELETE /api/v1/courses/:id
+//@access private
+const deleteCourse = asyncHandler(async (req, res, next) => {
+  let course = await Course.findById(req.params.id);
+
+  if (!course) {
+    return next(
+      new ErrorResponse(`No course found  with the id of ${req.params.id}`),
+      404
+    );
+  }
+
+  //we are using remove because later we want to use some middleware which will run while removing the document, which will not happen in the case of findByIdAndUpdate
+  await course.remove();
+
+  res.json({
+    success: true,
+    data: {},
+  });
+});
+
+module.exports = {
+  getCourses,
+  getCourse,
+  createCourse,
+  updateCourse,
+  deleteCourse,
+};
