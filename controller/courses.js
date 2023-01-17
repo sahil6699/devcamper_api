@@ -9,27 +9,16 @@ const Bootcamp = require('../models/Bootcamps');
 //@route  GET /api/v1/bootcamps/:bootcampId/courses - used to give all the courses of a particular bootcamp with a given id
 //@access Public
 const getCourses = asyncHandler(async (req, res, next) => {
-  let query;
-
   if (req.params.bootcampId) {
-    query = Course.find({ bootcamp: req.params.bootcampId });
-  } else {
-    // query = Course.find({});
-    // query = Course.find({}).populate('bootcamp');//to the whole bootcamp into the course we use this
-    //or
-    //if we just want to populate certain fields only then we use this
-    query = Course.find({}).populate({
-      path: 'bootcamp',
-      select: 'name description',
+    const courses = await Course.find({ bootcamp: req.params.bootcampId });
+    res.status(200).json({
+      success: true,
+      count: courses.length,
+      data: courses,
     });
+  } else {
+    res.status(200).json(res.advancedResults);
   }
-
-  let courses = await query;
-  res.json({
-    success: true,
-    count: courses.length,
-    data: courses,
-  });
 });
 
 // @dec   Get Single courses
