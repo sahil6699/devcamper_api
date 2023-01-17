@@ -2,3 +2,4 @@
 config/config.env
 .vscode
 *.png
+*.jpg
