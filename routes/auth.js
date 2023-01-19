@@ -5,9 +5,10 @@
  * * add a user update a user and so on
  */
 
-const { register } = require('../controller/auth');
+const { register, login } = require('../controller/auth');
 const router = require('express').Router();
 
 router.route('/register').post(register);
+router.route('/login').post(login);
 
 module.exports = router;
