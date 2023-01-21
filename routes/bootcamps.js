@@ -15,6 +15,9 @@ const Bootcamp = require('../models/Bootcamps');
 //include advanced result bootcamps
 const advancedResults = require('../middleware/advancedResults');
 
+//include protect middleware
+const { protect } = require('../middleware/auth');
+
 //Include other resource router
 const courseRouter = require('./courses');
 
@@ -27,12 +30,12 @@ router.route('/:id/photo').put(bootcampPhotoUpload);
 router
   .route('/')
   .get(advancedResults(Bootcamp, 'courses'), getBootcamps)
-  .post(createBootcamp);
+  .post(protect, createBootcamp);
 
 router
   .route('/:id')
   .get(getBootcamp)
-  .delete(deleteBootcamp)
-  .put(updateBootcamp);
+  .delete(protect, deleteBootcamp)
+  .put(protect, updateBootcamp);
 
 module.exports = router;
