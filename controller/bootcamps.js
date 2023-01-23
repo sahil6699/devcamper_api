@@ -57,7 +57,7 @@ const deleteBootcamp = asyncHandler(async (req, res, next) => {
       )
     );
   }
-  bootcamp.remove();
+  await bootcamp.remove();
 
   res.status(200).json({
     success: true,
