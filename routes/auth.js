@@ -5,12 +5,17 @@
  * * add a user update a user and so on
  */
 
-const { register, login, getMe } = require('../controller/auth');
+const {
+  register,
+  login,
+  getMe,
+  forgotPassword,
+} = require('../controller/auth');
 const router = require('express').Router();
 const { protect } = require('../middleware/auth');
 
 router.route('/register').post(register);
 router.route('/login').post(login);
 router.route('/me').get(protect, getMe);
-
+router.route('/forgotpassword').post(forgotPassword);
 module.exports = router;
