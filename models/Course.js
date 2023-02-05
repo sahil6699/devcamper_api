@@ -36,6 +36,11 @@ const CoursesSchema = new mongoose.Schema({
     ref: 'Bootcamp',
     required: true,
   },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: true,
+  },
 });
 CoursesSchema.statics.getAverageCost = async function (bootcampId) {
   const obj = await this.aggregate([
@@ -49,7 +54,6 @@ CoursesSchema.statics.getAverageCost = async function (bootcampId) {
       },
     },
   ]);
-  console.log(obj);
   try {
     if (obj.length !== 0) {
       await this.model('Bootcamp').findByIdAndUpdate(bootcampId, {
